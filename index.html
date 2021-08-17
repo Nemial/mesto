@@ -1,31 +1,78 @@
 <!doctype html>
-<html lang='ru'>
+<html lang="ru">
+
 <head>
-  <meta charset='UTF-8'>
-  <meta content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
-    name='viewport'>
-  <meta content='ie=edge' http-equiv='X-UA-Compatible'>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <title>Mesto</title>
-  <link href='./pages/index.css' rel='stylesheet'>
+  <link href="./pages/index.css" rel="stylesheet">
 </head>
-<body class='page'>
-<header class='header'>
-  <img alt='Логотип Mesto' class='header__logo' src='./images/header__logo.svg'>
-</header>
-<main>
-  <section class='profile'>
-    <img alt='Аватар профиля' class='profile__avatar' src='./images/profile__avatar.svg'>
-    <div class='profile__info'>
-      <h1 class='profile__title'>Жак-Ив Кусто</h1>
-      <h2 class='profile__subtitle'>Исследователь океана</h2>
-      <button class='profile__edit-button'>
-        <img alt='Кнопка редактирования' src='./images/profile__edit-button.svg'>
+
+<body class="page">
+  <header class="header">
+    <img alt="Логотип Mesto" class="header__logo" src="./images/header__logo.svg">
+  </header>
+  <main>
+    <section class="profile">
+      <img alt="Аватар профиля" class="profile__avatar" src="./images/profile__avatar.svg">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <h2 class="profile__subtitle">Исследователь океана</h2>
+        <button class="profile__edit-button">
+          <img alt="Кнопка редактирования" src="./images/profile__edit-button.svg">
+        </button>
+      </div>
+      <button class="profile__add-button">
+        <img alt="Кнопка добавления" src="./images/profile__add-button.svg">
       </button>
-    </div>
-    <button class='profile__add-button'>
-      <img alt='Кнопка добавления' src='./images/profile__add-button.svg'>
-    </button>
-  </section>
-</main>
+    </section>
+    <section class="places">
+      <figure class="place">
+        <img alt="Карачаевск" class="place__image" src="./images/place-karachaevsk.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Карачаевск</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Гора Эльбрус</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Домбай</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Гора Эльбрус</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Домбай</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Карачаево-Черкесия" class="place__image" src="./images/place-karachaevsk.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Карачаево-Черкесия</h3>
+          <div class="place__like-button"></div>
+        </figcaption>
+      </figure>
+    </section>
+  </main>
 </body>
+
 </html>

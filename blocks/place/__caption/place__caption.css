@@ -1,0 +1,7 @@
+.place__caption {
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: calc(381px - 282px);
+}
