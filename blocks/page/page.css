@@ -5,6 +5,7 @@
   margin: 0 auto;
   max-width: 1280px;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
