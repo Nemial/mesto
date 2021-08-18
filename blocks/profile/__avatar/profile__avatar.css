@@ -1,3 +1,4 @@
 .profile__avatar {
   border-radius: 60%;
+  margin-right: calc(48.5px / 2);
 }
