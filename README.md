@@ -12,6 +12,6 @@
 2. Flexbox
 3. Javascript
 
-
 ### Ссылка
+
 Проект можно посмотреть [здесь](https://nemial.github.io/mesto/index.html)

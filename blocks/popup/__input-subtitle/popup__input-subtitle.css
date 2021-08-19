@@ -7,3 +7,9 @@
   padding-bottom: 13px;
   width: 354px;
 }
+
+@media screen and (max-width: 415px) {
+  .popup__input-subtitle {
+    width: 238px;
+  }
+}
