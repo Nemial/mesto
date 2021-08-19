@@ -29,3 +29,10 @@ popupForm.addEventListener('submit', function (evt) {
   profileSubtitle.textContent = formInputSubtitle.value;
   popup.classList.remove('popup_opened');
 })
+
+popup.addEventListener('keydown', function (evt) {
+  if (evt.code === 'Enter') {
+    let popupButtonSubmit = popupForm.querySelector('.popup__button-submit');
+    popupButtonSubmit.click();
+  }
+});
