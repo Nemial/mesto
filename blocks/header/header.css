@@ -3,3 +3,15 @@
   margin: 45px auto 40px;
   max-width: 880px;
 }
+
+@media screen and (max-width: 920px) {
+  .header {
+    margin: 45px 40px 40px;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  .header {
+    margin: 28px 0 38.25px;
+  }
+}

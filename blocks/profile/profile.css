@@ -1,6 +1,25 @@
 .profile {
   display: grid;
-  grid-template-columns: minmax(min-content, 168px) 1fr fit-content(150px);
+  grid-template-columns: minmax(min-content, 168px) min-content 1fr;
   margin: 0 auto 51px;
   max-width: 880px;
+}
+
+@media screen and (max-width: 920px) {
+  .profile {
+    margin: 0 40px 51px;
+  }
+}
+
+@media screen and (max-width: 758px) {
+  .profile {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  .profile {
+    margin: 0 19px 36px;
+  }
 }
