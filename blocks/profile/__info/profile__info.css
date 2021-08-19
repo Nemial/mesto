@@ -1,6 +1,14 @@
 .profile__info {
   display: grid;
   gap: 16px 18px;
-  grid-template-columns: minmax(294px, 1fr) minmax(275px, 1fr);
+  grid-template-columns: min-content auto;
   grid-template-rows: min-content 1fr;
+}
+
+@media screen and (max-width: 758px) {
+  .profile__info {
+    justify-content: center;
+    margin-bottom: 36px;
+    text-align: center;
+  }
 }

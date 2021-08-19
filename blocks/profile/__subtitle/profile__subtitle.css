@@ -9,3 +9,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@media screen and (max-width: 372px) {
+  .profile__subtitle {
+    font-size: 14px;
+    line-height: 16.94px;
+  }
+}
