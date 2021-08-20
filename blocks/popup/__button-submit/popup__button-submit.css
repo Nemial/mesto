@@ -6,7 +6,6 @@
   font-weight: 400;
   height: 50px;
   line-height: 21.78px;
-  margin: 37px 36px 38px;
   opacity: 1;
   padding: 0;
   transition: opacity .4s ease-out;
@@ -23,7 +22,6 @@
     font-size: 14px;
     height: 46px;
     line-height: 16.94px;
-    margin: 45px 22px 25px;
     width: 238px;
   }
 }

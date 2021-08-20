@@ -5,6 +5,7 @@
   grid-column: 1;
   line-height: 48px;
   margin: 0;
+  max-width: 294px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
