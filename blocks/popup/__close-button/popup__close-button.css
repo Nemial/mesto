@@ -1,12 +1,12 @@
 .popup__close-button {
-  background: rgba(0, 0, 0, .5) url("../../../images/popup__close-button_big.svg") no-repeat center center;
+  background: rgba(0, 0, 0, 0) url("../../../images/popup__close-button_big.svg") no-repeat center center;
   border: 0;
+  bottom: 4px;
   height: 32px;
-  left: 248px;
+  left: 234px;
   opacity: 1;
   padding: 0;
   position: relative;
-  top: 98px;
   transition: opacity .4s ease-out;
   width: 32px;
 }
@@ -16,7 +16,7 @@
   opacity: .6;
 }
 
-@media screen and (max-width: 758px) {
+@media screen and (max-width: 758px) and (min-width: 564px) {
   .popup__close-button {
     left: 232px;
   }
@@ -24,8 +24,8 @@
 
 @media screen and (max-width: 563px) {
   .popup__close-button {
+    bottom: 10px;
     left: 177px;
-    top: 88px;
   }
 }
 
@@ -33,6 +33,5 @@
   .popup__close-button {
     background-image: url("../../../images/popup__close-button_small.svg");
     left: 124px;
-    top: 87px;
   }
 }
