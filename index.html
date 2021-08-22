@@ -2,86 +2,90 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  <meta content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0"
     name="viewport">
   <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <title>Mesto</title>
   <link href="./pages/index.css" rel="stylesheet">
 </head>
 <body class="page">
-<header class="header">
-  <img alt="Логотип Mesto" class="header__logo" src="./images/header__logo.svg">
-</header>
-<main>
-  <section class="profile">
-    <img alt="Аватар профиля" class="profile__avatar" src="./images/profile__avatar.svg">
-    <div class="profile__info">
-      <h1 class="profile__title">Жак-Ив Кусто</h1>
-      <h2 class="profile__subtitle">Исследователь океана</h2>
-      <button class="profile__edit-button">
+  <header class="header">
+    <img alt="Логотип Mesto" class="header__logo" src="./images/header__logo.svg">
+  </header>
+  <main>
+    <section class="profile">
+      <img alt="Аватар профиля" class="profile__avatar" src="./images/profile__avatar.png">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <p class="profile__subtitle">Исследователь океана</p>
+        <button class="profile__edit-button" type="button">
+        </button>
+      </div>
+      <button class="profile__add-button">
       </button>
+    </section>
+    <section class="places">
+      <figure class="place">
+        <img alt="Карачаевск" class="place__image" src="./images/place-karachaevsk.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Карачаевск</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Гора Эльбрус</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Домбай</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Гора Эльбрус</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Домбай</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="place">
+        <img alt="Карачаево-Черкесия" class="place__image" src="./images/place-karachaevsk.jpg">
+        <figcaption class="place__caption">
+          <h3 class="place__name">Карачаево-Черкесия</h3>
+          <button class="place__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+    </section>
+    <div class="popup">
+      <button class="popup__close-button" type="button">
+      </button>
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form action="/index.html" class="popup__form" method="post" name="profileData">
+          <fieldset class="popup__form-inputs">
+            <input class="popup__form-input" id="name" name="title" type="text">
+            <input class="popup__form-input" id="description" name="subtitle" type="text">
+          </fieldset>
+          <button class="popup__button-submit" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
-    <button class="profile__add-button">
-    </button>
-  </section>
-  <section class="places">
-    <figure class="place">
-      <img alt="Карачаевск" class="place__image" src="./images/place-karachaevsk.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Карачаевск</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Гора Эльбрус</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Домбай</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Гора Эльбрус</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Домбай</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <img alt="Карачаево-Черкесия" class="place__image" src="./images/place-karachaevsk.jpg">
-      <figcaption class="place__caption">
-        <h3 class="place__name">Карачаево-Черкесия</h3>
-        <button class="place__like-button"></button>
-      </figcaption>
-    </figure>
-  </section>
-  <section class="popup">
-    <button class="popup__close-button">
-    </button>
-    <form class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__input-title" type="text">
-      <input class="popup__input-subtitle" type="text">
-      <button class="popup__button-submit" type="submit">Сохранить</button>
-    </form>
-  </section>
-</main>
-<footer class="footer">
-  <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-</footer>
-<script src="./scripts/script.js"></script>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>

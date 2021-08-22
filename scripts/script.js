@@ -1,38 +1,30 @@
-let popup = document.querySelector('.popup');
-let closePopupButton = popup.querySelector('.popup__close-button');
-let profile = document.querySelector('.profile');
-let profileEditButton = profile.querySelector('.profile__edit-button');
-let popupForm = popup.querySelector('.popup__container');
+const popup = document.querySelector('.popup');
+const closePopupButton = popup.querySelector('.popup__close-button');
+const profile = document.querySelector('.profile');
+const profileEditButton = profile.querySelector('.profile__edit-button');
+const popupForm = popup.querySelector('.popup__container');
+const formInputTitle = popup.querySelector('#name');
+const formInputSubtitle = popup.querySelector('#description');
+let profileTitle = profile.querySelector('.profile__title');
+let profileSubtitle = profile.querySelector('.profile__subtitle');
 
-profileEditButton.addEventListener('click', function () {
-  let formInputTitle = popup.querySelector('.popup__input-title');
-  let formInputSubtitle = popup.querySelector('.popup__input-subtitle');
-  let profileTitle = profile.querySelector('.profile__title');
-  let profileSubtitle = profile.querySelector('.profile__subtitle');
+const openPopup = () => {
   formInputTitle.value = profileTitle.textContent;
   formInputSubtitle.value = profileSubtitle.textContent;
   popup.classList.add('popup_opened');
+};
 
-});
-
-closePopupButton.addEventListener('click', function () {
+const closePopup = () => {
   popup.classList.remove('popup_opened');
-});
+};
 
-popupForm.addEventListener('submit', function (evt) {
+const changeProfileData = (evt) => {
   evt.preventDefault();
-  let formInputTitle = popup.querySelector('.popup__input-title');
-  let formInputSubtitle = popup.querySelector('.popup__input-subtitle');
-  let profileTitle = profile.querySelector('.profile__title');
-  let profileSubtitle = profile.querySelector('.profile__subtitle');
   profileTitle.textContent = formInputTitle.value;
   profileSubtitle.textContent = formInputSubtitle.value;
-  popup.classList.remove('popup_opened');
-})
+  closePopup();
+}
 
-popup.addEventListener('keydown', function (evt) {
-  if (evt.code === 'Enter') {
-    let popupButtonSubmit = popupForm.querySelector('.popup__button-submit');
-    popupButtonSubmit.click();
-  }
-});
+profileEditButton.addEventListener('click', openPopup);
+closePopupButton.addEventListener('click', closePopup);
+popupForm.addEventListener('submit', changeProfileData);
