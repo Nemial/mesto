@@ -2,7 +2,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 64px 0 37px;
+  margin: 54px 0 37px;
+  max-height: 213px;
 }
 
 @media screen and (max-width: 415px) {
