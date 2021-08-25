@@ -25,48 +25,6 @@
       </button>
     </section>
     <section class="places">
-      <figure class="place">
-        <img alt="Карачаевск" class="place__image" src="./images/place-karachaevsk.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Карачаевск</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="place">
-        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Гора Эльбрус</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="place">
-        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Домбай</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="place">
-        <img alt="Эльбрус" class="place__image" src="./images/place-elbrus.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Гора Эльбрус</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="place">
-        <img alt="Домбай" class="place__image" src="./images/place-dombai.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Домбай</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="place">
-        <img alt="Карачаево-Черкесия" class="place__image" src="./images/place-karachaevsk.jpg">
-        <figcaption class="place__caption">
-          <h3 class="place__name">Карачаево-Черкесия</h3>
-          <button class="place__like-button" type="button"></button>
-        </figcaption>
-      </figure>
     </section>
     <div class="popup">
       <button class="popup__close-button" type="button">
@@ -82,10 +40,45 @@
         </form>
       </div>
     </div>
+    <div class="popup-new-place popup">
+      <button class="popup__close-button" type="button">
+      </button>
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form action="/index.html" class="popup__form" method="post" name="placeData">
+          <fieldset class="popup__form-inputs">
+            <input class="popup__form-input" id="place-name" name="name" placeholder="Название" type="text">
+            <input class="popup__form-input" id="place-img" name="url" placeholder="Ссылка на картинку" type="url">
+          </fieldset>
+          <button class="popup__button-submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup-viewer">
+      <figure class="popup-viewer__container">
+        <button class="popup-viewer__close-button" type="button">
+        </button>
+        <img alt="" class="popup-viewer__image"
+          src="">
+        <figcaption class="popup-viewer__caption">
+          <p class="popup-viewer__text"></p>
+        </figcaption>
+      </figure>
+    </div>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+  <template id="places">
+    <figure class="place">
+      <img alt="" class="place__image" src="">
+      <button class="place__trash-button"></button>
+      <figcaption class="place__caption">
+        <h3 class="place__name"></h3>
+        <button class="place__like-button" type="button"></button>
+      </figcaption>
+    </figure>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>

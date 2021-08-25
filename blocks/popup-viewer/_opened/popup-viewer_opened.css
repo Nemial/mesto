@@ -1,4 +1,4 @@
-.popup_opened {
+.popup-viewer_opened {
   display: flex;
   opacity: 1;
   transition: visibility 3s, opacity 0.5s linear;
