@@ -67,8 +67,7 @@ function openPopup(popup) {
 }
 
 function closePopup(evt) {
-  const currentPopup = evt.target.closest('.popup');
-  currentPopup.classList.remove('popup_opened');
+  evt.target.closest('.popup').classList.remove('popup_opened');
 }
 
 function changeProfileData(evt) {
