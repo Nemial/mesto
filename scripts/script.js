@@ -45,10 +45,6 @@ function openPopupViewer(evt) {
   openPopup(popupViewer);
 }
 
-function openNewPlacePopup() {
-  openPopup(popupNewPlace);
-}
-
 function initCardItem() {
   initialCards.forEach(function (card) {
     const cardItem = makeCardItem(card);
@@ -62,19 +58,19 @@ function openProfilePopup() {
   openPopup(popup);
 }
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
+function openPopup(currentPopup) {
+  currentPopup.classList.add('popup_opened');
 }
 
-function closePopup(evt) {
-  evt.target.closest('.popup').classList.remove('popup_opened');
+function closePopup(currentPopup) {
+  currentPopup.classList.remove('popup_opened');
 }
 
 function changeProfileData(evt) {
   evt.preventDefault();
   profileTitle.textContent = formInputTitle.value;
   profileSubtitle.textContent = formInputSubtitle.value;
-  closePopup();
+  closePopup(popup);
 }
 
 function addNewPlaceItem(evt) {
@@ -82,15 +78,15 @@ function addNewPlaceItem(evt) {
   const cardItem = makeCardItem({name: inputPlaceName.value, link: inputPlaceImg.value});
   popupNewPlaceForm.reset();
   placesSection.prepend(cardItem);
-  closePopup(evt);
+  closePopup(popupNewPlace);
 
 }
 
 initCardItem();
 profileEditButton.addEventListener('click', openProfilePopup);
-addNewPlaceButton.addEventListener('click', openNewPlacePopup);
-closePopupButton.addEventListener('click', closePopup);
-closePopupNewPlaceButton.addEventListener('click', closePopup);
-closePopupViewerButton.addEventListener('click', closePopup);
+addNewPlaceButton.addEventListener('click', () => openPopup(popupNewPlace));
+closePopupButton.addEventListener('click', () => closePopup(popup));
+closePopupNewPlaceButton.addEventListener('click', () => closePopup(popupNewPlace));
+closePopupViewerButton.addEventListener('click', () => closePopup(popupViewer));
 popupForm.addEventListener('submit', changeProfileData);
 popupNewPlaceForm.addEventListener('submit', addNewPlaceItem);

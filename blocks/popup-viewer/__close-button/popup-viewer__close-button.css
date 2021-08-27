@@ -1,5 +1,5 @@
 .popup-viewer__close-button {
-  align-self: end;
+  align-self: flex-end;
   background: rgba(0, 0, 0, 0) url("../../../images/popup__close-button_big.svg") no-repeat center center;
   border: 0;
   bottom: 6px;
