@@ -1,4 +1,5 @@
 const popup = document.querySelector('.popup');
+const popups = Array.from(document.querySelectorAll('.popup'));
 const popupNewPlace = document.querySelector('.popup-new-place');
 const popupViewer = document.querySelector('.popup-viewer');
 const closePopupButton = popup.querySelector('.popup__close-button');
@@ -59,11 +60,13 @@ function openProfilePopup() {
 }
 
 function openPopup(currentPopup) {
+  currentPopup.addEventListener('keydown', closePopupWithKey);
   currentPopup.classList.add('popup_opened');
 }
 
 function closePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened');
+  removeEventListener('keydown', currentPopup);
 }
 
 function changeProfileData(evt) {
@@ -82,7 +85,19 @@ function addNewPlaceItem(evt) {
 
 }
 
+function closePopupWithKey(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(evt.currentTarget);
+  }
+}
+
 initCardItem();
+popups.forEach(function (popupElement) {
+  popupElement.addEventListener('click', function (evt) {
+    closePopup(evt.target);
+  });
+});
+
 profileEditButton.addEventListener('click', openProfilePopup);
 addNewPlaceButton.addEventListener('click', () => openPopup(popupNewPlace));
 closePopupButton.addEventListener('click', () => closePopup(popup));
