@@ -17,6 +17,8 @@ const formInputTitle = popupProfile.querySelector('#name');
 const templateCardItem = document.querySelector('#places').content;
 const placesSection = document.querySelector('.places');
 const formInputSubtitle = popupProfile.querySelector('#description');
+const inputList = Array.from(popupNewPlaceForm.querySelectorAll(`.${classData.inputSelector}`));
+const buttonElement = popupNewPlaceForm.querySelector(`.${classData.buttonSubmitClass}`);
 
 function likeCard(evt) {
   evt.target.classList.toggle('place__like-button_active');
@@ -65,7 +67,7 @@ function openPopup(currentPopup) {
 
 function closePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened');
-  currentPopup.removeEventListener('keydown', closePopupWithKey);
+  document.removeEventListener('keydown', closePopupWithKey);
 }
 
 function changeProfileData(evt) {
@@ -81,8 +83,6 @@ function addNewPlaceItem(evt) {
   popupNewPlaceForm.reset();
   placesSection.prepend(cardItem);
   closePopup(popupNewPlace);
-  const inputList = Array.from(popupNewPlaceForm.querySelectorAll(`.${classData.inputSelector}`));
-  const buttonElement = popupNewPlaceForm.querySelector(`.${classData.buttonSubmitClass}`);
   toggleButtonState(inputList, buttonElement, classData.disableButtonClass);
 }
 
