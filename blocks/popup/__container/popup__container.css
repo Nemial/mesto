@@ -1,7 +1,11 @@
 .popup__container {
+  align-content: space-around;
+  align-items: center;
   background-color: white;
   border-radius: 10px;
-  max-height: 330px;
+  display: grid;
+  height: 330px;
+  justify-items: center;
   width: 430px;
 }
 

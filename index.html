@@ -26,7 +26,7 @@
     </section>
     <section class="places">
     </section>
-    <div class="popup">
+    <div class="popup profile-popup">
       <button class="popup__close-button" type="button">
       </button>
       <div class="popup__container">
@@ -52,9 +52,10 @@
         <form action="/index.html" class="popup__form" method="post" name="placeData" novalidate>
           <fieldset class="popup__form-inputs">
             <input class="popup__form-input" id="place-name" maxlength="30" minlength="2" name="name"
-              placeholder="Название" type="text">
+              placeholder="Название" required type="text">
             <span class="input-error place-name-error"></span>
-            <input class="popup__form-input" id="place-img" name="url" placeholder="Ссылка на картинку" type="url">
+            <input class="popup__form-input" id="place-img" name="url" placeholder="Ссылка на картинку" required
+              type="url">
             <span class="input-error place-img-error"></span>
           </fieldset>
           <button class="popup__button-submit" type="submit">Создать</button>
@@ -63,7 +64,7 @@
     </div>
     <div class="popup popup-viewer">
       <figure class="popup-viewer__container">
-        <button class="popup-viewer__close-button" type="button">
+        <button class="popup-viewer__close-button popup__close-button" type="button">
         </button>
         <img alt="" class="popup-viewer__image"
           src=".">

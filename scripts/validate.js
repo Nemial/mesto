@@ -16,7 +16,7 @@ function enableValidation(classData) {
 function setEventListeners(formElement, classData) {
   const inputList = Array.from(formElement.querySelectorAll(`.${classData.inputSelector}`));
   const buttonElement = formElement.querySelector(`.${classData.buttonSubmitClass}`);
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, classData.disableButtonClass);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, classData.activeErrorClass, classData.inputErrorClass);
