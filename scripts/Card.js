@@ -19,7 +19,9 @@ export default class Card {
     this._cardElement.querySelector('.place__trash-button').addEventListener('click', (evt) => {
       this._removeCardHandler(evt);
     });
-    this._cardImage.addEventListener('click', openPopupViewer);
+    this._cardImage.addEventListener('click', () => {
+      openPopupViewer(this._cardImage.src, this._cardImage.alt);
+    });
   }
 
   _likeCardHandler(evt) {

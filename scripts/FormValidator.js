@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(classData, formElement) {
     this._classData = classData;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(`.${this._classData.inputSelector}`));
+    this._buttonElement = this._formElement.querySelector(`.${this._classData.buttonSubmitClass}`);
   }
 
   enableValidation() {
@@ -9,24 +11,22 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(`.${this._classData.inputSelector}`));
-    const buttonElement = this._formElement.querySelector(`.${this._classData.buttonSubmitClass}`);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+    this.toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
-        this._toggleButtonState(inputList, buttonElement, this._classData.disableButtonClass);
+        this.toggleButtonState();
       });
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._classData.disableButtonClass);
-      buttonElement.disabled = true;
+  toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.classList.add(this._classData.disableButtonClass);
+      this._buttonElement.disabled = true;
     } else {
-      buttonElement.classList.remove(this._classData.disableButtonClass);
-      buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._classData.disableButtonClass);
+      this._buttonElement.disabled = false;
     }
   }
 
@@ -52,8 +52,8 @@ export default class FormValidator {
     inputElement.classList.remove(this._classData.inputErrorClass);
   }
 
-  _hasInvalidInput(inputList) {
-    return inputList.some(function (inputElement) {
+  _hasInvalidInput() {
+    return this._inputList.some(function (inputElement) {
       return !inputElement.validity.valid;
     });
   }
