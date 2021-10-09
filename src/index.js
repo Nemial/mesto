@@ -14,11 +14,11 @@ import {
   profileEditButton,
   userDescriptionSelector,
   userNameSelector,
-} from '../src/utils.js';
+} from './utils/utils.js';
 import PopupWithForm from '../src/components/PopupWithForm.js';
 import UserInfo from '../src/components/UserInfo.js';
 import FormValidator from '../src/components/FormValidator.js';
-
+import './pages/index.css';
 const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector });
 
 const cards = new Section({
