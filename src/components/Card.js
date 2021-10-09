@@ -1,11 +1,10 @@
-import { openPopupViewer } from './script.js';
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._imageSrc = data.link;
     this._imageAlt = data.name;
     this._name = data.name;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -19,9 +18,7 @@ export default class Card {
     this._cardElement.querySelector('.place__trash-button').addEventListener('click', (evt) => {
       this._removeCardHandler(evt);
     });
-    this._cardImage.addEventListener('click', () => {
-      openPopupViewer(this._cardImage.src, this._cardImage.alt);
-    });
+    this._cardImage.addEventListener('click', () => this._handleCardClick());
   }
 
   _likeCardHandler(evt) {
