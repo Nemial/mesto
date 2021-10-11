@@ -36,7 +36,6 @@ export const classData = {
 export const cardSelector = '#template-place';
 export const popupViewerSelector = '.popup-viewer';
 export const cardsContainerSelector = '.places';
-export const cardContainerElement = document.querySelector('.places');
 export const popupNewPlaceSelector = '.popup-new-place';
 export const popupProfileSelector = '.profile-popup';
 export const profileElement = document.querySelector('.profile');

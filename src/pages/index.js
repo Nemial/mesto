@@ -1,9 +1,8 @@
-import Card from '../src/components/Card.js';
-import Section from '../src/components/Section.js';
-import PopupWithImage from '../src/components/PopupWithImage.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import {
   addNewPlaceButton,
-  cardContainerElement,
   cardsContainerSelector,
   cardSelector,
   classData,
@@ -14,21 +13,17 @@ import {
   profileEditButton,
   userDescriptionSelector,
   userNameSelector,
-} from './utils/utils.js';
-import PopupWithForm from '../src/components/PopupWithForm.js';
-import UserInfo from '../src/components/UserInfo.js';
-import FormValidator from '../src/components/FormValidator.js';
-import './pages/index.css';
+} from '../utils/utils.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import FormValidator from '../components/FormValidator.js';
+import './index.css';
+
 const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector });
 
 const cards = new Section({
   items: initialCards, renderer: (item) => {
-    const card = new Card(item, cardSelector, () => {
-      const popupViewer = new PopupWithImage(popupViewerSelector);
-      popupViewer.setEventListener();
-      popupViewer.open(item.link, item.name);
-    });
-    const cardElement = card.generateCard();
+    const cardElement = createNewCard(item, cardSelector);
     cards.addItem(cardElement);
   },
 }, cardsContainerSelector);
@@ -38,13 +33,8 @@ const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
   evt.preventDefault();
   const formValues = popupNewPlace.getFormValues();
   const item = { name: formValues.name, link: formValues.url };
-  const card = new Card(item, cardSelector, () => {
-    const popupViewer = new PopupWithImage(popupViewerSelector);
-    popupViewer.setEventListener();
-    popupViewer.open(item.link, item.name);
-  });
-  const cardElement = card.generateCard();
-  cardContainerElement.prepend(cardElement);
+  const cardElement = createNewCard(item, cardSelector);
+  cards.addNewItem(cardElement);
   popupNewPlace.close();
 });
 popupNewPlace.setEventListener();
@@ -69,4 +59,16 @@ profileEditButton.addEventListener('click', () => {
   popupProfile.open();
 });
 
-addNewPlaceButton.addEventListener('click', () => popupNewPlace.open());
+addNewPlaceButton.addEventListener('click', () => {
+  popupNewPlaceValidator.enableValidation();
+  popupNewPlace.open();
+});
+
+function createNewCard(item, cardSelector) {
+  const card = new Card(item, cardSelector, () => {
+    const popupViewer = new PopupWithImage(popupViewerSelector);
+    popupViewer.setEventListener();
+    popupViewer.open(item.link, item.name);
+  });
+  return card.generateCard();
+}
