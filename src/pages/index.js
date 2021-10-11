@@ -60,7 +60,7 @@ profileEditButton.addEventListener('click', () => {
 });
 
 addNewPlaceButton.addEventListener('click', () => {
-  popupNewPlaceValidator.enableValidation();
+  popupNewPlaceValidator.toggleButtonState();
   popupNewPlace.open();
 });
 
