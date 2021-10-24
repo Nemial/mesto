@@ -6,11 +6,11 @@ import {
   cardsContainerSelector,
   cardSelector,
   classData,
-  initialCards,
   popupNewPlaceSelector,
   popupProfileSelector,
   popupViewerSelector,
   profileEditButton,
+  userAvatarSelector,
   userDescriptionSelector,
   userNameSelector,
 } from '../utils/utils.js';
@@ -18,16 +18,48 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import './index.css';
+import Api from '../components/Api';
 
-const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector });
-
-const cards = new Section({
-  items: initialCards, renderer: (item) => {
-    const cardElement = createNewCard(item, cardSelector);
-    cards.addItem(cardElement);
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29',
+  headers: {
+    authorization: 'ae466f98-7ffc-4435-a80d-300e1427093a',
+    'Content-Type': 'application/json',
   },
-}, cardsContainerSelector);
-cards.renderItems();
+});
+api.getInitialCards().then((res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`${res.status} ${res.statusText}`);
+  }
+}).then((data) => {
+  const initialCards = data.slice(0, 6);
+  const cards = new Section({
+    items: initialCards, renderer: (item) => {
+      const cardElement = createNewCard(item, cardSelector);
+      cards.addItem(cardElement);
+    },
+  }, cardsContainerSelector);
+  cards.renderItems();
+}).catch((err) => {
+  console.error(err);
+});
+
+const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector, userAvatarSelector });
+
+api.getUserInfo().then((res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`${res.status} ${res.statusText}`);
+  }
+}).then((data) => {
+  userInfo.setUserInfo({ userName: data.name, userDescription: data.about });
+  userInfo.setUserAvatar({ userAvatarLink: data.avatar });
+}).catch((err) => {
+  console.error(err);
+});
 
 const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
   evt.preventDefault();
@@ -44,8 +76,19 @@ popupNewPlaceValidator.enableValidation();
 const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
   evt.preventDefault();
   const formValues = popupProfile.getFormValues();
-  userInfo.setUserInfo({ userName: formValues.title, userDescription: formValues.subtitle });
-  popupProfile.close();
+  api.updateUserInfo({ name: formValues.title, about: formValues.subtitle }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`${res.status} ${res.statusText}`);
+    }
+  }).then((data) => {
+    userInfo.setUserInfo({ userName: data.name, userDescription: data.about });
+  }).catch((err) => {
+    console.error(err);
+  }).finally(() => {
+    popupProfile.close();
+  });
 });
 popupProfile.setEventListener();
 const popupProfileValidator = new FormValidator(classData, popupProfile.getFormElement());
