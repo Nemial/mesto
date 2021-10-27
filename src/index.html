@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0"
-    name="viewport">
+        name="viewport">
   <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <title>Mesto</title>
 </head>
@@ -33,13 +33,24 @@
         <form action="/src/index.html" class="popup__form" method="post" name="profileData" novalidate>
           <fieldset class="popup__form-inputs">
             <input class="popup__form-input" id="name" maxlength="40" minlength="2" name="title"
-              required type="text">
+                   required type="text">
             <span class="input-error name-error"></span>
             <input class="popup__form-input" id="description" maxlength="200" minlength="2" name="subtitle" required
-              type="text">
+                   type="text">
             <span class="input-error description-error"></span>
           </fieldset>
           <button class="popup__button-submit" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup-confirm">
+      <button class="popup__close-button" type="button">
+      </button>
+      <div class="popup__container popup__container_empty">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form action="/src/index.html" class="popup__form popup__form-disable_height" method="post" name="profileData"
+              novalidate>
+          <button class="popup__button-submit" type="submit">Да</button>
         </form>
       </div>
     </div>
@@ -51,10 +62,10 @@
         <form action="/src/index.html" class="popup__form" method="post" name="placeData" novalidate>
           <fieldset class="popup__form-inputs">
             <input class="popup__form-input" id="place-name" maxlength="30" minlength="2" name="name"
-              placeholder="Название" required type="text">
+                   placeholder="Название" required type="text">
             <span class="input-error place-name-error"></span>
             <input class="popup__form-input" id="place-img" name="url" placeholder="Ссылка на картинку" required
-              type="url">
+                   type="url">
             <span class="input-error place-img-error"></span>
           </fieldset>
           <button class="popup__button-submit" type="submit">Создать</button>
@@ -66,7 +77,7 @@
         <button class="popup-viewer__close-button popup__close-button" type="button">
         </button>
         <img alt="" class="popup-viewer__image"
-          src=".">
+             src=".">
         <figcaption class="popup-viewer__caption">
           <p class="popup-viewer__text"></p>
         </figcaption>
@@ -82,7 +93,10 @@
       <button class="place__trash-button"></button>
       <figcaption class="place__caption">
         <h3 class="place__name"></h3>
-        <button class="place__like-button" type="button"></button>
+        <div class="place__info-block">
+          <button class="place__like-button" type="button"></button>
+          <p class="place__count-like">12</p>
+        </div>
       </figcaption>
     </figure>
   </template>

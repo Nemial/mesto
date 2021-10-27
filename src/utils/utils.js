@@ -11,6 +11,7 @@ export const popupViewerSelector = '.popup-viewer';
 export const cardsContainerSelector = '.places';
 export const popupNewPlaceSelector = '.popup-new-place';
 export const popupProfileSelector = '.profile-popup';
+export const popupConfirmSelector = '.popup-confirm';
 export const profileElement = document.querySelector('.profile');
 export const profileEditButton = profileElement.querySelector('.profile__edit-button');
 export const addNewPlaceButton = profileElement.querySelector('.profile__add-button');
