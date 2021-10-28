@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, isMyCard, cardSelector, handleCardClick, handleDeleteIconClick }) {
+  constructor({ data, isMyCard, cardSelector, handleCardClick, likeCardHandler, handleDeleteIconClick }) {
     this._isMyCard = isMyCard;
     this._imageSrc = data.link;
     this._imageAlt = data.name;
@@ -9,6 +9,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
+    this._likeCardHandler = likeCardHandler;
   }
 
   _getTemplate() {
@@ -27,9 +28,13 @@ export default class Card {
     this._cardImage.addEventListener('click', () => this._handleCardClick());
   }
 
-  _likeCardHandler(evt) {
+  _likeCardHandler12(evt) {
     evt.target.classList.toggle('place__like-button_active');
   }
+
+  getCardId() {
+    return this._cardId;
+  };
 
   generateCard() {
     this._cardElement = this._getTemplate();
@@ -39,10 +44,14 @@ export default class Card {
     this._cardImage = this._cardElement.querySelector('.place__image');
     this._cardImage.alt = this._imageAlt;
     this._cardImage.src = this._imageSrc;
+    this._countLikeElement = this._cardElement.querySelector('.place__count-like');
     this._cardElement.querySelector('.place__name').textContent = this._name;
-    this._cardElement.querySelector('.place__count-like').textContent = this._countLike;
-    this._cardElement.setAttribute('data-id', this._cardId);
+    this._countLikeElement.textContent = this._countLike;
     this._setEventListeners();
     return this._cardElement;
+  }
+
+  setLikeCount(likeCount) {
+    this._countLikeElement.textContent = likeCount;
   }
 }

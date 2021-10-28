@@ -14,6 +14,8 @@ export default class Api {
       } else {
         return Promise.reject(`${res.status} ${res.statusText}`);
       }
+    }).catch((err) => {
+      console.error(`Ошибка загрузки карточек: ${err}`);
     });
   }
 
@@ -27,6 +29,8 @@ export default class Api {
       } else {
         return Promise.reject(`${res.status} ${res.statusText}`);
       }
+    }).catch((err) => {
+      console.error(`Ошибка загрузки данных пользователя: ${err}`);
     });
   }
 
@@ -57,6 +61,31 @@ export default class Api {
     return fetch(requestUrl, {
       headers: this._headers,
       method: 'DELETE',
+    });
+  }
+
+  addLike(cardId) {
+    const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
+    return fetch(requestUrl, {
+      headers: this._headers,
+      method: 'PUT',
+    });
+  }
+
+  removeLike(cardId) {
+    const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
+    return fetch(requestUrl, {
+      headers: this._headers,
+      method: 'DELETE',
+    });
+  }
+
+  changeProfileAvatar(body) {
+    const requestUrl = this._baseUrl + `/users/me/avatar`;
+    return fetch(requestUrl, {
+      headers: this._headers,
+      method: 'PATCH',
+      body: JSON.stringify(body),
     });
   }
 }

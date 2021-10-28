@@ -6,14 +6,13 @@ import {
   cardsContainerSelector,
   cardSelector,
   classData,
+  popupChangeAvatarSelector,
   popupConfirmSelector,
   popupNewPlaceSelector,
   popupProfileSelector,
   popupViewerSelector,
   profileEditButton,
-  userAvatarSelector,
-  userDescriptionSelector,
-  userNameSelector,
+  profileElement,
 } from '../utils/utils.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -37,7 +36,34 @@ const cards = new Section({
   },
 }, cardsContainerSelector);
 
-const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector, userAvatarSelector });
+const popupChangeAvatar = new PopupWithForm(popupChangeAvatarSelector, (evt) => {
+  evt.preventDefault();
+  popupChangeAvatar.changeLoader(true);
+  const formValues = popupChangeAvatar.getFormValues();
+  api.changeProfileAvatar({ avatar: formValues.url }).then((res) => {
+    if (res.ok) {
+      popupChangeAvatar.changeLoader();
+      userInfo.setUserAvatar({userAvatarLink: formValues.url});
+    } else {
+      return Promise.reject(`${res.status} ${res.statusText}`);
+    }
+  }).catch((err) => {
+    console.error(err);
+  }).finally(() => {
+    popupChangeAvatar.close();
+  });
+});
+popupChangeAvatar.setEventListener();
+const popupChangeAvatarValidator = new FormValidator(classData, popupChangeAvatar.getFormElement());
+popupChangeAvatarValidator.enableValidation();
+
+const userInfo = new UserInfo({
+  userElement: profileElement, avatarClickHandler: () => {
+    popupChangeAvatar.open();
+  },
+});
+
+userInfo.setEventListener();
 
 api.getPageNeedData().then((responses) => {
   const [cardData, userData] = responses;
@@ -46,12 +72,11 @@ api.getPageNeedData().then((responses) => {
   userInfo.saveUserId(userData._id);
   const initialCards = cardData.slice(0, 6);
   cards.renderItems(initialCards);
-}).catch((err) => {
-  console.error(err);
 });
 
 const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
   evt.preventDefault();
+  popupNewPlace.changeLoader(true);
   const formValues = popupNewPlace.getFormValues();
   const item = { name: formValues.name, link: formValues.url };
   api.addNewCard(item).then((res) => {
@@ -67,6 +92,7 @@ const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
     console.error(err);
   }).finally(() => {
     popupNewPlace.close();
+    popupNewPlace.changeLoader();
   });
 });
 popupNewPlace.setEventListener();
@@ -75,6 +101,7 @@ popupNewPlaceValidator.enableValidation();
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
   evt.preventDefault();
+  popupProfile.changeLoader(true);
   const formValues = popupProfile.getFormValues();
   api.updateUserInfo({ name: formValues.title, about: formValues.subtitle }).then((res) => {
     if (res.ok) {
@@ -87,6 +114,7 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
   }).catch((err) => {
     console.error(err);
   }).finally(() => {
+    popupProfile.changeLoader();
     popupProfile.close();
   });
 });
@@ -119,9 +147,38 @@ function createNewCard(item, cardSelector) {
       popupViewer.setEventListener();
       popupViewer.open(item.link, item.name);
     },
+    likeCardHandler: (evt) => {
+      if (!evt.target.classList.contains('place__like-button_active')) {
+        api.addLike(card.getCardId()).then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return Promise.reject(`${res.status} ${res.statusText}`);
+          }
+        }).then((data) => {
+          card.setLikeCount(data.likes.length);
+          evt.target.classList.add('place__like-button_active');
+        }).catch((err) => {
+          console.error(err);
+        });
+      } else {
+        api.removeLike(card.getCardId()).then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return Promise.reject(`${res.status} ${res.statusText}`);
+          }
+        }).then((data) => {
+          card.setLikeCount(data.likes.length);
+          evt.target.classList.remove('place__like-button_active');
+        }).catch((err) => {
+          console.error(err);
+        });
+      }
+    },
     handleDeleteIconClick: (evt) => {
       const card = evt.target.closest('.place');
-      const cardId = card.getAttribute('data-id');
+      const cardId = card.getCardId();
       popupConfirm.changeHandlerSubmitForm((evt) => {
         evt.preventDefault();
         api.removeCard(cardId).then((res) => {

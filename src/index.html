@@ -13,7 +13,9 @@
   </header>
   <main>
     <section class="profile">
-      <img alt="Аватар профиля" class="profile__avatar" src="">
+      <div class="profile__image-container">
+        <img alt="Аватар профиля" class="profile__avatar" src="">
+      </div>
       <div class="profile__info">
         <h1 class="profile__title"></h1>
         <p class="profile__subtitle"></p>
@@ -46,9 +48,9 @@
     <div class="popup popup-confirm">
       <button class="popup__close-button" type="button">
       </button>
-      <div class="popup__container popup__container_empty">
+      <div class="popup__container popup__container_type_empty">
         <h2 class="popup__title">Вы уверены?</h2>
-        <form action="/src/index.html" class="popup__form popup__form-disable_height" method="post" name="profileData"
+        <form action="/src/index.html" class="popup__form popup__form_disable_height" method="post" name="profileData"
               novalidate>
           <button class="popup__button-submit" type="submit">Да</button>
         </form>
@@ -69,6 +71,20 @@
             <span class="input-error place-img-error"></span>
           </fieldset>
           <button class="popup__button-submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup-change-avatar popup">
+      <button class="popup__close-button" type="button">
+      </button>
+      <div class="popup__container popup__container_type_change-avatar">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form action="/src/index.html" class="popup__form popup__form_type_change-avatar" method="post" name="placeData"
+              novalidate>
+          <input class="popup__form-input popup-change-avatar__input" id="avatar" name="url" placeholder="Ссылка на аватар" required
+                 type="url">
+          <span class="input-error avatar-error popup-change-avatar__error"></span>
+          <button class="popup__button-submit" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -95,7 +111,7 @@
         <h3 class="place__name"></h3>
         <div class="place__info-block">
           <button class="place__like-button" type="button"></button>
-          <p class="place__count-like">12</p>
+          <p class="place__count-like"></p>
         </div>
       </figcaption>
     </figure>
