@@ -177,13 +177,13 @@ function createNewCard(item, cardSelector) {
       }
     },
     handleDeleteIconClick: (evt) => {
-      const card = evt.target.closest('.place');
+      const cardElement = evt.target.closest('.place');
       const cardId = card.getCardId();
       popupConfirm.changeHandlerSubmitForm((evt) => {
         evt.preventDefault();
         api.removeCard(cardId).then((res) => {
           if (res.ok) {
-            card.remove();
+            cardElement.remove();
           } else {
             return Promise.reject(`${res.status} ${res.statusText}`);
           }
