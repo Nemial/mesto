@@ -8,30 +8,14 @@ export default class Api {
     const requestUrl = this._baseUrl + '/cards';
     return fetch(requestUrl, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`${res.status} ${res.statusText}`);
-      }
-    }).catch((err) => {
-      console.error(`Ошибка загрузки карточек: ${err}`);
-    });
+    }).then(this._checkResponse);
   }
 
   getUserInfo() {
     const requestUrl = this._baseUrl + '/users/me';
     return fetch(requestUrl, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`${res.status} ${res.statusText}`);
-      }
-    }).catch((err) => {
-      console.error(`Ошибка загрузки данных пользователя: ${err}`);
-    });
+    }).then(this._checkResponse);
   }
 
   getPageNeedData() {
@@ -44,7 +28,7 @@ export default class Api {
       headers: this._headers,
       method: 'PATCH',
       body: JSON.stringify(body),
-    });
+    }).then(this._checkResponse);
   }
 
   addNewCard(body) {
@@ -53,7 +37,7 @@ export default class Api {
       headers: this._headers,
       method: 'POST',
       body: JSON.stringify(body),
-    });
+    }).then(this._checkResponse);
   }
 
   removeCard(cardId) {
@@ -61,7 +45,7 @@ export default class Api {
     return fetch(requestUrl, {
       headers: this._headers,
       method: 'DELETE',
-    });
+    }).then(this._checkResponse);
   }
 
   addLike(cardId) {
@@ -69,7 +53,7 @@ export default class Api {
     return fetch(requestUrl, {
       headers: this._headers,
       method: 'PUT',
-    });
+    }).then(this._checkResponse);
   }
 
   removeLike(cardId) {
@@ -77,7 +61,7 @@ export default class Api {
     return fetch(requestUrl, {
       headers: this._headers,
       method: 'DELETE',
-    });
+    }).then(this._checkResponse);
   }
 
   changeProfileAvatar(body) {
@@ -86,6 +70,14 @@ export default class Api {
       headers: this._headers,
       method: 'PATCH',
       body: JSON.stringify(body),
-    });
+    }).then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`${res.status} ${res.statusText}`);
+    }
   }
 }

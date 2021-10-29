@@ -12,8 +12,10 @@ import {
   popupProfileSelector,
   popupViewerSelector,
   profileEditButton,
-  profileElement,
-} from '../utils/utils.js';
+  userAvatarSelector,
+  userDescriptionSelector,
+  userNameSelector,
+} from '../utils/constants.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
@@ -40,38 +42,28 @@ const popupChangeAvatar = new PopupWithForm(popupChangeAvatarSelector, (evt) => 
   evt.preventDefault();
   popupChangeAvatar.changeLoader(true);
   const formValues = popupChangeAvatar.getFormValues();
-  api.changeProfileAvatar({ avatar: formValues.url }).then((res) => {
-    if (res.ok) {
-      popupChangeAvatar.changeLoader();
-      userInfo.setUserAvatar({userAvatarLink: formValues.url});
-    } else {
-      return Promise.reject(`${res.status} ${res.statusText}`);
-    }
+  api.changeProfileAvatar({ avatar: formValues.url }).then(() => {
+    popupChangeAvatar.close();
   }).catch((err) => {
     console.error(err);
   }).finally(() => {
-    popupChangeAvatar.close();
+    popupChangeAvatar.changeLoader();
   });
-});
+}, true);
 popupChangeAvatar.setEventListener();
 const popupChangeAvatarValidator = new FormValidator(classData, popupChangeAvatar.getFormElement());
 popupChangeAvatarValidator.enableValidation();
 
-const userInfo = new UserInfo({
-  userElement: profileElement, avatarClickHandler: () => {
-    popupChangeAvatar.open();
-  },
-});
-
-userInfo.setEventListener();
+const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector, userAvatarSelector });
 
 api.getPageNeedData().then((responses) => {
   const [cardData, userData] = responses;
   userInfo.setUserInfo({ userName: userData.name, userDescription: userData.about });
   userInfo.setUserAvatar({ userAvatarLink: userData.avatar });
   userInfo.saveUserId(userData._id);
-  const initialCards = cardData.slice(0, 6);
-  cards.renderItems(initialCards);
+  cards.renderItems(cardData);
+}).catch((err) => {
+  console.error(err);
 });
 
 const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
@@ -79,19 +71,13 @@ const popupNewPlace = new PopupWithForm(popupNewPlaceSelector, (evt) => {
   popupNewPlace.changeLoader(true);
   const formValues = popupNewPlace.getFormValues();
   const item = { name: formValues.name, link: formValues.url };
-  api.addNewCard(item).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`${res.status} ${res.statusText}`);
-    }
-  }).then((newCardItem) => {
+  api.addNewCard(item).then((newCardItem) => {
     const cardElement = createNewCard(newCardItem, cardSelector);
     cards.addNewItem(cardElement);
+    popupNewPlace.close();
   }).catch((err) => {
     console.error(err);
   }).finally(() => {
-    popupNewPlace.close();
     popupNewPlace.changeLoader();
   });
 });
@@ -103,19 +89,13 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
   evt.preventDefault();
   popupProfile.changeLoader(true);
   const formValues = popupProfile.getFormValues();
-  api.updateUserInfo({ name: formValues.title, about: formValues.subtitle }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`${res.status} ${res.statusText}`);
-    }
-  }).then((data) => {
+  api.updateUserInfo({ name: formValues.title, about: formValues.subtitle }).then((data) => {
     userInfo.setUserInfo({ userName: data.name, userDescription: data.about });
+    popupProfile.close();
   }).catch((err) => {
     console.error(err);
   }).finally(() => {
     popupProfile.changeLoader();
-    popupProfile.close();
   });
 });
 popupProfile.setEventListener();
@@ -130,11 +110,12 @@ profileEditButton.addEventListener('click', () => {
   const profileForm = popupProfile.getFormElement();
   profileForm.elements.name.value = userInfoData.userName;
   profileForm.elements.description.value = userInfoData.userDescription;
+  popupProfileValidator.resetValidation();
   popupProfile.open();
 });
 
 addNewPlaceButton.addEventListener('click', () => {
-  popupNewPlaceValidator.toggleButtonState();
+  popupNewPlaceValidator.resetValidation();
   popupNewPlace.open();
 });
 
@@ -147,30 +128,16 @@ function createNewCard(item, cardSelector) {
       popupViewer.setEventListener();
       popupViewer.open(item.link, item.name);
     },
-    likeCardHandler: (evt) => {
-      if (!evt.target.classList.contains('place__like-button_active')) {
-        api.addLike(card.getCardId()).then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            return Promise.reject(`${res.status} ${res.statusText}`);
-          }
-        }).then((data) => {
+    likeCardHandler: () => {
+      if (!card.isLiked()) {
+        api.addLike(card.getCardId()).then((data) => {
           card.setLikeCount(data.likes.length);
-          evt.target.classList.add('place__like-button_active');
         }).catch((err) => {
           console.error(err);
         });
       } else {
-        api.removeLike(card.getCardId()).then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            return Promise.reject(`${res.status} ${res.statusText}`);
-          }
-        }).then((data) => {
+        api.removeLike(card.getCardId()).then((data) => {
           card.setLikeCount(data.likes.length);
-          evt.target.classList.remove('place__like-button_active');
         }).catch((err) => {
           console.error(err);
         });
@@ -181,16 +148,12 @@ function createNewCard(item, cardSelector) {
       const cardId = card.getCardId();
       popupConfirm.changeHandlerSubmitForm((evt) => {
         evt.preventDefault();
-        api.removeCard(cardId).then((res) => {
-          if (res.ok) {
-            cardElement.remove();
-          } else {
-            return Promise.reject(`${res.status} ${res.statusText}`);
-          }
+        api.removeCard(cardId).then(() => {
+          cardElement.remove();
+          popupConfirm.close();
+
         }).catch((err) => {
           console.error(err);
-        }).finally(() => {
-          popupConfirm.close();
         });
       });
       popupConfirm.open();
