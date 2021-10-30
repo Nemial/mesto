@@ -12,6 +12,7 @@ import {
   popupProfileSelector,
   popupViewerSelector,
   profileEditButton,
+  profileImageContainerSelector,
   userAvatarSelector,
   userDescriptionSelector,
   userNameSelector,
@@ -53,6 +54,10 @@ const popupChangeAvatar = new PopupWithForm(popupChangeAvatarSelector, (evt) => 
 popupChangeAvatar.setEventListener();
 const popupChangeAvatarValidator = new FormValidator(classData, popupChangeAvatar.getFormElement());
 popupChangeAvatarValidator.enableValidation();
+document.querySelector(profileImageContainerSelector).addEventListener('click', () => {
+  popupChangeAvatarValidator.resetValidation();
+  popupChangeAvatar.open();
+});
 
 const userInfo = new UserInfo({ userNameSelector, userDescriptionSelector, userAvatarSelector });
 
@@ -105,6 +110,9 @@ popupProfileValidator.enableValidation();
 const popupConfirm = new PopupWithSubmit(popupConfirmSelector);
 popupConfirm.setEventListener();
 
+const popupViewer = new PopupWithImage(popupViewerSelector);
+popupViewer.setEventListener();
+
 profileEditButton.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
   const profileForm = popupProfile.getFormElement();
@@ -124,8 +132,6 @@ function createNewCard(item, cardSelector) {
   const card = new Card({
     data: item, isMyCard, cardSelector,
     handleCardClick: () => {
-      const popupViewer = new PopupWithImage(popupViewerSelector);
-      popupViewer.setEventListener();
       popupViewer.open(item.link, item.name);
     },
     likeCardHandler: () => {

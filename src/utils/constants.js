@@ -11,6 +11,7 @@ export const popupViewerSelector = '.popup-viewer';
 export const cardsContainerSelector = '.places';
 export const popupNewPlaceSelector = '.popup-new-place';
 export const popupProfileSelector = '.profile-popup';
+export const profileImageContainerSelector = '.profile__image-container';
 export const popupConfirmSelector = '.popup-confirm';
 export const popupChangeAvatarSelector = '.popup-change-avatar';
 export const profileElement = document.querySelector('.profile');
