@@ -50,7 +50,7 @@ const popupChangeAvatar = new PopupWithForm(popupChangeAvatarSelector, (evt) => 
   }).finally(() => {
     popupChangeAvatar.changeLoader();
   });
-}, true);
+});
 popupChangeAvatar.setEventListener();
 const popupChangeAvatarValidator = new FormValidator(classData, popupChangeAvatar.getFormElement());
 popupChangeAvatarValidator.enableValidation();
